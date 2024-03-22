@@ -4,20 +4,28 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { WagmiProvider } from 'wagmi'
 
-import App from './App.tsx'
+// Chakra UI
+import theme from './theme.tsx'
+import { 
+  ChakraProvider,
+  ColorModeScript
+ } from '@chakra-ui/react'
+
+import KeyManager from './KeyManager.tsx'
 import { config } from './wagmi.ts'
 
 import './index.css'
-
-globalThis.Buffer = Buffer
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <ChakraProvider theme={theme}>
+			    <KeyManager />
+		    </ChakraProvider>	
       </QueryClientProvider>
     </WagmiProvider>
   </React.StrictMode>,

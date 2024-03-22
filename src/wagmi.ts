@@ -1,17 +1,15 @@
 import { http, createConfig } from 'wagmi'
-import { mainnet, sepolia } from 'wagmi/chains'
-import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors'
+import { baseGoerli } from 'wagmi/chains'
+import { coinbaseWallet, injected } from 'wagmi/connectors'
 
 export const config = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [baseGoerli],
   connectors: [
-    injected(),
-    coinbaseWallet({ appName: 'Create Wagmi' }),
-    walletConnect({ projectId: import.meta.env.VITE_WC_PROJECT_ID }),
+    coinbaseWallet({ appName: 'Locksmith Key Manager' }),
+    injected({target: 'metaMask'}),
   ],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [baseGoerli.id]: http()
   },
 })
 
